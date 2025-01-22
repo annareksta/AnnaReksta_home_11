@@ -1,0 +1,20 @@
+export const weatherDescriptions = {
+    "clear": "The sky is a flawless blue, bathed in sunlight.",
+    "partially-cloudy": "Soft clouds drift lazily across the sky.",
+    "cloudy": "The sky is covered with a thick blanket of clouds.",
+    "overcast": "A gray mist hangs heavy in the air.",
+    "fog": "The world is veiled in a silvery fog.",
+    "rain": "Raindrops fall gently, dancing on rooftops.",
+    "showers": "A sudden downpour leaves everything glistening.",
+    "thunderstorms": "Thunder rumbles, shaking the heavens above.",
+    "snow": "Snowflakes swirl, turning the world into a winter wonderland.",
+    "flurries": "Light snowflakes flutter through the chilly air.",
+    "hail": "Ice pelts the ground in a fierce, rhythmic beat.",
+    "sleet": "A mix of rain and ice coats the ground in a slippery sheen.",
+    "windy": "The wind howls through the trees, bending the branches.",
+    "blustery": "Gusts of wind whip across the landscape, wild and free.",
+    "tornado": "A mighty whirlwind twists the air, relentless and fierce.",
+    "hurricane": "The storm rages with fury, tearing through the skies.",
+    "dust": "A fine dust hangs in the air, carried by the breeze.",
+    "ash": "The air is thick with the remnants of distant fire."
+};
