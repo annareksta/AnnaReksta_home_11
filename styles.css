@@ -1,3 +1,4 @@
+
 body {
     display: flex;
     flex-direction: column;
@@ -40,6 +41,12 @@ button {
 button:hover {
     background-color: #0056b3;
 }
+#map {
+    width: 700px;
+    height: 300px;
+    border-radius: 8px;
+    margin-top: 20px;
+}
 #weather-section {
     display: flex;
     margin-top: 20px;
@@ -71,6 +78,7 @@ button:hover {
 }
 #currentWeather p {
     margin: 6px;
+    text-align: center;
 }
 
 #tenDays {

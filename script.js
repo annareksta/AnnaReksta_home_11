@@ -18,8 +18,16 @@ function getWeather(city) {
             const icon = currentWeather.icon;
             const iconPath = `./icons/${icon}.png`;
             const adress = data.resolvedAddress;
-            const descriptionKey = currentWeather.conditions.toLowerCase().replace(/\s+/g, '-');
-            const description = weatherDescriptions[descriptionKey] || "Weather data unavailable.";
+            const descriptionKeys = currentWeather.conditions
+            .toLowerCase()
+            .split(', ') // Разбиваем строку на части по запятой и пробелу
+            .map(key => key.replace(/\s+/g, '-')); // Меняем пробелы на "-"
+        
+        const descriptions = descriptionKeys
+            .map(key => weatherDescriptions[key] || key) // Берём описание, если есть, иначе оставляем ключ
+            .join(' ');
+        
+        const description = descriptions || "Weather data unavailable.";
             console.log(data);
             console.log(iconPath);
             // отображение данных
@@ -34,6 +42,11 @@ function getWeather(city) {
                 <p>Humidity: ${humidity}%</p>
                 <img src= "${iconPath}" width="100" height="100" alt="${icon}">
             `;
+
+            // отображение карты
+            const lat = data.latitude;
+            const lon = data.longitude;
+            initMap(lat, lon);
 
             // отображение погоды на 10 дней
             const forecastContainer = document.getElementById("forecast-container");
@@ -146,3 +159,43 @@ form.addEventListener("submit", (event) => {
         getWeather(query);
     }
 });
+let map;
+let marker;
+
+function initMap(lat, lon) {
+    if (!map) {
+        map = L.map('map').setView([lat, lon], 10);
+        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+            attribution: '&copy; OpenStreetMap contributors'
+        }).addTo(map);
+        
+        marker = L.marker([lat, lon]).addTo(map);
+
+        // Добавляем обработчик клика по карте
+        map.on('click', function (e) {
+            const { lat, lng } = e.latlng;
+            marker.setLatLng([lat, lng]);  // Перемещаем маркер
+            getCityFromCoords(lat, lng);   // Ищем город по координатам
+        });
+
+    } else {
+        map.setView([lat, lon], 10);
+        marker.setLatLng([lat, lon]);
+    }
+}
+function getCityFromCoords(lat, lon) {
+    const url = `https://nominatim.openstreetmap.org/reverse?format=json&lat=${lat}&lon=${lon}`;
+    
+    fetch(url)
+        .then(response => response.json())
+        .then(data => {
+            if (data.address && data.address.city) {
+                const city = data.address.city;
+                cityinput.value = city; // Вставляем город в поле ввода
+                getWeather(city);       // Запрашиваем погоду
+            } else {
+                alert("Город не найден, попробуйте в другом месте!");
+            }
+        })
+        .catch(error => console.error("Ошибка при определении города:", error));
+}
