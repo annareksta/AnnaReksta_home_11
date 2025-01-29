@@ -19,7 +19,6 @@ h2 {
     align-items: center;
     justify-content: center;
     gap: 15px;
-    margin-top: 20px;
 
 }
 #city-input {
@@ -41,12 +40,28 @@ button {
 button:hover {
     background-color: #0056b3;
 }
+#weather-section {
+    display: flex;
+    margin-top: 20px;
+    flex-direction: row-reverse;
+    align-items: flex-start;
+    justify-content: center;
+    gap: 20px;
+    width: 100%;
+}
+#currentAndTenDays {
+    display: flex;
+    flex-direction: row;
+    align-items: flex-start;
+    justify-content: space-between;
+    width: 100%;
+    max-width: 1200px;
+}
 #currentWeather {
     display: none;
-    width: 500px;
+    width: 35%;
     flex-direction: column;
     align-items: center;
-    margin-top: 20px;
     padding: 10px;
     background-color: #fff;
     border: 1px solid #ccc;
@@ -61,16 +76,17 @@ button:hover {
 #tenDays {
     display: flex;
     flex-direction: row;
-    align-items: center;
-    margin-top: 20px;
+    align-items: flex-start;
     overflow-x: auto;
-    width: 80%;
+    width: auto;
     align-self: center;
+    gap: 10px;
 }
+
 #forecast-container {
     display: flex;
-    gap: 10px;
-    padding: 10px;
+    flex-direction: column;
+    gap: 3px;
     overflow-x: auto;
     scroll-snap-type: x mandatory;
     white-space: nowrap;
@@ -90,18 +106,35 @@ button:hover {
 }
 
 .forecast-card {
-    flex: 0 0 100px;
-    text-align: center;
-    scroll-snap-align: start;
-    border: 1px solid #ccc;
-    padding: 10px;
-    border-radius: 8px;
-    background-color: #f9f9f9;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    display: flex; /* Ставим содержимое в ряд */
+    align-items: center; /* Центрируем по вертикали */
+    justify-content: space-between; /* Разделяем содержимое по краям */
+    padding-left: 10px;
+    padding-right: 10px;
+    max-width: 600px; /* Ограничиваем максимальную ширину */
+    border: 1px solid #ccc; /* Рамка */
+    border-radius: 8px; /* Скругленные углы */
+    background-color: #f9f9f9; /* Цвет фона */
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Легкая тень */
 }
-.forecast-card p {
-    margin: 6px;
+.forecast-card.selected {
+    background-color: #00b1c9;
+    font-weight: bold;
+    border: 2px solid #007a99;
 }
+
+div.forecast-card p {
+    margin: 0 10px; /* Отступы между текстом */
+    flex: 1; /* Равномерное распределение пространства */
+    text-align: left; /* Выравнивание текста */
+}
+
+.forecast-card img {
+    width: 40px; /* Фиксированный размер иконки */
+    height: 40px;
+    margin-right: 10px;
+}
+
 #hourly-temperature {
     display: flex;
     flex-direction: column;
@@ -122,8 +155,6 @@ button:hover {
     flex-wrap: wrap;
     align-items: center;
     gap: 10px;
-    margin-top: 20px;
-    padding: 10px;
     background-color: #fff;
     border: 1px solid #ccc;
     border-radius: 8px;
@@ -140,12 +171,11 @@ button:hover {
     border: 1px solid #e0e0e0;
     border-radius: 6px;
     background-color: #f9f9f9;
-    font-size: 14px;
+    font-size: 12px;
     font-family: Arial, sans-serif;
-    font-weight: bold;
     color: #333;
     box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
-}
+} 
 
 .forecast-card:hover {
     background-color: #e6f7ff;

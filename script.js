@@ -52,13 +52,29 @@ function getWeather(city) {
 
                 // отображение погоды по часам
 dayCard.addEventListener("click", () => {
+    const currentWeatherDiv = document.getElementById("currentWeather");
     const hourlyTempDiv = document.getElementById("hourly-temperature");
     const hourlyHeader = document.getElementById("hourly-header");
     hourlyTempDiv.innerHTML = "";
+ 
+    const selectedDate = new Date(day.datetime);
+    const formattedDate = selectedDate.toLocaleDateString("en-US", { weekday: 'long', day: 'numeric', month: 'long' });
+
+    //убрать выделение всех карточек
+    document.querySelectorAll(".forecast-card").forEach(card => {
+        card.classList.remove("selected");
+    });
+
+    // выделить выбранную карточку
+    dayCard.classList.add("selected");
 
     // Показать заголовок и блок с часами
-    hourlyHeader.style.display = "block";
+    hourlyHeader.textContent = `Hourly Forecast for ${formattedDate}`;
+    hourlyHeader.style.display = "none";
     document.getElementById("hours").style.display = "block";
+
+    // скрыть текущую погоду
+    currentWeatherDiv.style.display = "none";
 
     // Получить текущее время
     const now = new Date();
@@ -80,14 +96,15 @@ dayCard.addEventListener("click", () => {
 
         // Формируем время
         const hourTime = new Date(hour.datetimeEpoch * 1000);
-
-        // Формат времени (локальное для города)
-        const localTime = new Date(hour.datetimeEpoch * 1000 + data.tzoffset * 3600000); // добавляем смещение
         const hourTimeFormatted = hourTime.toLocaleTimeString([], {
             hour: '2-digit',
             minute: '2-digit',
             hour12: false
         });
+
+        // Формат времени (локальное для города)
+        const localTime = new Date(hour.datetimeEpoch * 1000 + data.tzoffset * 3600000); // добавляем смещение
+        
         const localTimeFormatted = localTime.toLocaleTimeString([], {
             hour: '2-digit',
             minute: '2-digit',
